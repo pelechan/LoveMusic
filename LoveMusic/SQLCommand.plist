@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<string>CREATE TABLE &quot;Style&quot; (&quot;StyleName&quot; VARCHAR PRIMARY KEY)</string>
+	<string>CREATE TABLE &quot;Country&quot; (&quot;CountryName&quot; VARCHAR PRIMARY KEY)</string>
+	<string>CREATE TABLE &quot;Album&quot; (&quot;AlbumID&quot; INTEGER PRIMARY KEY, &quot;AlbumName&quot; VARCHAR NOT NULL, &quot;SingerID&quot; INTEGER NOT NULL REFERENCES &quot;Singer&quot; (&quot;SingerID&quot;))</string>
+	<string>CREATE TABLE &quot;Album_Song&quot; (&quot;AlbumID&quot; INTEGER REFERENCES &quot;Album&quot; (&quot;AlbumID&quot;), &quot;SongID&quot; INTEGER REFERENCES &quot;Song&quot; (&quot;SongID&quot;), PRIMARY KEY (&quot;AlbumID&quot;,&quot;SongID&quot;))</string>
+	<string>CREATE TABLE &quot;Singer&quot; (&quot;SingerID&quot; INTEGER PRIMARY KEY AUTOINCREMENT, &quot;SingerName&quot; VARCHAR NOT NULL, &quot;CountryName&quot; VARCHAR NOT NULL REFERENCES &quot;Country&quot; (&quot;Country&quot;), &quot;MorF&quot; INTEGER NOT NULL)</string>
+	<string>CREATE TABLE &quot;Song&quot; (&quot;SongID&quot; INTEGER PRIMARY KEY NOT NULL, &quot;SingerID&quot; INTEGER NOT NULL REFERENCES &quot;Singer&quot; (&quot;SingerID&quot;), &quot;SongName&quot; VARCHAR NOT NULL, &quot;StyleName&quot; VARCHAR NOT NULL REFERENCES &quot;Style&quot; (&quot;StyleName&quot;), &quot;SongAddress&quot; VARCHAR NOT NULL, &quot;SongLength&quot; INTEGER NOT NULL, &quot;IsFavorite&quot; BOOLEAN NOT NULL DEFAULT 0)</string>
+	<string>CREATE TABLE &quot;SongList&quot; (&quot;SongListName&quot; VARCHAR PRIMARY KEY)</string>
+	<string>CREATE TABLE &quot;SongList_Song&quot; (&quot;SongListName&quot; VARCHAR REFERENCES &quot;SongList&quot; (&quot;SongListName&quot;), &quot;SongID&quot; INTEGER REFERENCES &quot;Song&quot; (&quot;SongID&quot;), PRIMARY KEY (&quot;SongListName&quot;,&quot;SongID&quot;))</string>
+	<string>INSERT  INTO &quot;SongList&quot; (&quot;SongListName&quot;) VALUES(&quot;我的最爱&quot;)</string>
+</array>
+</plist>

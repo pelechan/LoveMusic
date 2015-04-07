@@ -17,6 +17,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [self initDataBase];
     return YES;
 }
 
@@ -41,5 +42,16 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
+-(void)initDataBase{
+    
+    DBcontroller * dbcontroller = [[DBcontroller alloc]init];
+    if(dbcontroller.initDB){
+        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"SQLCommand" ofType:@"plist"];
+        NSMutableArray *array = [[NSMutableArray alloc] initWithContentsOfFile:plistPath];
+        
+        for(int i=0;i<array.count;i++){
+            [dbcontroller execSql:[array objectAtIndex:i]];
+        }
+    }
+}
 @end
